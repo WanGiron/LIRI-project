@@ -8,6 +8,9 @@ var axios = require('axios');
 var Spotify = require('node-spotify-api');
 var keys = require("./keys.js");
 var fs = require('fs');
+var song = 'spotify-this-song';
+var movie = 'movie-this';
+var doIt = 'do-what-it-says';
 
 //getting user value for functions.
 var userInput = process.argv[2];
@@ -29,7 +32,7 @@ for (var i = 3; i < nodeArgs.length; i++) {
 //console.log(newSearch);
 
 // using fs to read random text
-if (userInput === 'do-what-it-says') {
+if (userInput === doIt) {
     fs.readFile('random.txt', function (err, data) {
         //----- getting the comand lines from .txt file----//
         var newData = data.toString();
@@ -41,8 +44,10 @@ if (userInput === 'do-what-it-says') {
         //--------- new values for user input and search-------- //
         //var userInput = newArray[0];
         var newSearch = newArray[1];
-        console.log(userInput, newSearch);
+        //console.log(userInput, newSearch);
+
         var spotify = new Spotify(keys.spotify);
+
         spotify
             .request('https://api.spotify.com/v1/search?query=' + newSearch + '&type=track&offset=0&limit=5')
             .then(function (data) {
@@ -60,8 +65,6 @@ if (userInput === 'do-what-it-says') {
                 console.error('Error occurred: ' + err);
             });
 
-
-
         if (err) {
             return console.error(err);
         }
@@ -70,8 +73,7 @@ if (userInput === 'do-what-it-says') {
 
 //----------------function to run api if user input is = to spotify this song--------------//
 
-
-else if (userInput === 'spotify-this-song') {
+else if (userInput === song) {
     var spotify = new Spotify(keys.spotify);
     spotify
         .request('https://api.spotify.com/v1/search?query=' + newSearch + '&type=track&offset=0&limit=5')
@@ -103,7 +105,7 @@ else if (userInput === 'spotify-this-song') {
 
 // -----------------second API------------------//
 
-if (userInput === 'movie-this') {
+if (userInput === movie) {
     // Then run a request with axios to the OMDB API with the movie specified
     var queryUrl = "http://www.omdbapi.com/?t=" + newSearch + "&y=&plot=short&apikey=trilogy";
     axios.get(queryUrl).then(
@@ -129,7 +131,7 @@ if (userInput === 'movie-this') {
     )
 
 }
-if (userInput === "movie-this" || newSearch === "") {
+if (userInput === "", newSearch === "") {
     console.log("If you haven't watched" + '"' + "Mr. Nobody" + '"' + ",then you should: <http://www.imdb.com/title/tt0485947/> Its on Netflix!")
 
 }
