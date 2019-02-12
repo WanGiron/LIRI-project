@@ -14,6 +14,10 @@ You can get information about movies and songs using <Spotify API> and <OMDB API
 
  node liri.js spotify-this-song <any song name>
 
+ * To get a gif image just type on the command line:
+ 
+ node liri.js giphy-this <any name>
+
  * To do what it says type in the command line:
 
  node liri.js do-what-it-says

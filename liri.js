@@ -8,6 +8,7 @@ var axios = require('axios');
 var Spotify = require('node-spotify-api');
 var keys = require("./keys.js");
 var fs = require('fs');
+var Giphy = require('giphy-api');
 var song = 'spotify-this-song';
 var movie = 'movie-this';
 var doIt = 'do-what-it-says';
@@ -26,10 +27,11 @@ for (var i = 3; i < nodeArgs.length; i++) {
     }
     else {
         newSearch += nodeArgs[i];
-
     }
 }
+
 //console.log(newSearch);
+
 
 // using fs to read random text
 if (userInput === doIt) {
@@ -131,7 +133,25 @@ if (userInput === movie) {
     )
 
 }
+
+// 3rd API Giphy-API
+if(userInput === 'giphy-this'){
+    var giphy = new Giphy(keys.giphy);
+     //giphy.translate(newSearch).then(function (response) {
+     //console.log(newSearch);
+    //})  
+    giphy.translate( newSearch)//"https://api.giphy.com/v1/gifs/search?q="+ newSearch +"&limit=1"
+    .then(function (response) {
+        console.log('THIS IS YOUR RESULT: ' + response.data.url);
+    
+    })
+    }
+
+
+//  empty search   
 if (userInput === "", newSearch === "") {
     console.log("If you haven't watched" + '"' + "Mr. Nobody" + '"' + ",then you should: <http://www.imdb.com/title/tt0485947/> Its on Netflix!")
 
 }
+
+
